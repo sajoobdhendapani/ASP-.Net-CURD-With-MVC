@@ -1,0 +1,113 @@
+﻿@model IEnumerable<StudentDetails.DataAccessLayer.StudentDetail>
+
+@{ ViewData["Title"] = "View"; }
+@section scripts{
+    <script>
+    $(document).ready(function () {
+
+        $('.Delete').click(function (e) {
+
+
+            var ID = $(this).attr("data-id");
+            var Name = $(this).attr("data-name");
+
+
+            debugger;
+            if (confirm("Are you sure want to delete this Id =" + ID + " with Name= " + Name +"?")) {
+                var post = {
+                    "id": ID
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/Student/Delete",
+                    data: post,
+                    success: function (data) {
+
+                         alert("Successfully Deleted Id number:" +ID);
+
+                    }
+                });
+            }
+            else {
+                window.location.href = "/student/index";
+            }
+
+        });
+
+
+    });
+
+    </script> }
+
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.StudentId)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AGE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.StudentId)
+        </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DOB)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AGE)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Gender)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MobileNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Subject)
+    </td>
+    <td>
+        <a asp-action="Create" asp-route-id="@item.StudentId">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
+        <a href="" class="Delete" data-name="@item.Name" data-id="@item.StudentId"> Delete</a>
+    </td>
+</tr>}
+    </tbody>
+</table>

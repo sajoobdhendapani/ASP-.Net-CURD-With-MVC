@@ -1,0 +1,509 @@
+﻿@model StudentDetails.DataAccessLayer.StudentDetail
+
+@{ ViewData["Title"] = "Create";
+    var text = "Create";
+
+
+    if (Model.StudentId > 0)
+    {
+        text = "Update";
+    } }
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+
+
+        html {
+            background-color: #000000;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            height: 100vh;
+        }
+
+        a {
+            color: #92badd;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 400;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: inline-block;
+            margin: 10px 8px 10px 8px;
+            color: #cccccc;
+        }
+
+
+
+
+        .wrapper {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 20px;
+        }
+
+        #formContent {
+            -webkit-border-radius: 10px 10px 10px 10px;
+            border-radius: 10px 10px 10px 10px;
+            background: #fff;
+            padding: 30px;
+            width: 50%;
+            position: relative;
+            -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+            box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+
+
+
+        h2.inactive {
+            color: #cccccc;
+        }
+
+        h2.active {
+            color: #0d0d0d;
+            border-bottom: 2px solid #5fbae9;
+        }
+
+
+
+
+        input[type=button], input[type=submit], input[type=reset] {
+            background-color: #56baed;
+            border: none;
+            color: white;
+            padding: 15px 80px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 13px;
+            cursor: pointer;
+            -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+            box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            margin: 10px 20px 20px 20px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+            input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+                background-color: #1200ff;
+            }
+
+            input[type=button]:active, input[type=submit]:active, input[type=reset]:active {
+                -moz-transform: scale(0.95);
+                -webkit-transform: scale(0.95);
+                -o-transform: scale(0.95);
+                -ms-transform: scale(0.95);
+                transform: scale(0.95);
+            }
+
+        input[type=text], input[type=password] {
+            background-color: #f6f6f6;
+            border: none;
+            color: #0d0d0d;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline;
+            font-size: 16px;
+            margin: 5px;
+            width: 85%;
+            border: 2px solid #f6f6f6;
+            -webkit-transition: all 0.5s ease-in-out;
+            
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+            input[type=text]:focus {
+                background-color: #fff;
+                border-bottom: 2px solid #5fbae9;
+            }
+
+            
+
+
+        .fadeInDown {
+            -webkit-animation-name: fadeInDown;
+            animation-name: fadeInDown;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+
+
+
+        .fadeIn {
+            opacity: 0;
+            -webkit-animation: fadeIn ease-in 1;
+            -moz-animation: fadeIn ease-in 1;
+            animation: fadeIn ease-in 1;
+            -webkit-animation-fill-mode: forwards;
+            -moz-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-duration: 1s;
+            -moz-animation-duration: 1s;
+            animation-duration: 1s;
+        }
+
+            .fadeIn.first {
+                -webkit-animation-delay: 0.4s;
+                -moz-animation-delay: 0.4s;
+                animation-delay: 0.4s;
+            }
+
+            .fadeIn.second {
+                -webkit-animation-delay: 0.6s;
+                -moz-animation-delay: 0.6s;
+                animation-delay: 0.6s;
+            }
+
+            .fadeIn.third {
+                -webkit-animation-delay: 0.8s;
+                -moz-animation-delay: 0.8s;
+                animation-delay: 0.8s;
+            }
+
+            .fadeIn.fourth {
+                -webkit-animation-delay: 1s;
+                -moz-animation-delay: 1s;
+                animation-delay: 1s;
+            }
+
+        .underlineHover:after {
+            display: block;
+            left: 0;
+            bottom: -10px;
+            width: 0;
+            height: 2px;
+            background-color: #56baed;
+            content: "";
+            transition: width 0.2s;
+        }
+
+        .underlineHover:hover {
+            color: #0d0d0d;
+        }
+
+            .underlineHover:hover:after {
+                width: 100%;
+            }
+
+
+
+        *:focus {
+            outline: none;
+        }
+
+        #icon {
+            width: 60%;
+        }
+    </style>
+
+
+</head>
+
+
+<h1>@text</h1>
+
+<h4>StudentDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="StudentId" id="StudentId" type="hidden" />
+                <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                <span asp-validation-for="Name" id="txtname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DOB" class="control-label"></label>
+                <input asp-for="DOB" class="form-control" placeholder="Enter your Dob" />
+                <span asp-validation-for="DOB" id="txtdob" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AGE" class="control-label"></label>
+                <input asp-for="AGE" class="form-control" placeholder="Enter  Age" />
+                <span asp-validation-for="AGE" id="txtage" class="text-danger"></span>
+            </div>
+
+            <div class="radio-btn label">
+                <label id="radgender">Gender</label>
+                <input asp-for="Gender" type="radio" name="radio" id="male" value="male">
+                <label for="radio">Male</label>
+                <input type="radio" asp-for="Gender" name="radio" id="female" value="female">
+                <label for="radio">Female</label>
+            </div>
+            <div>
+                <span asp-validation-for="Gender" id="errgender" class="text-danger"></span>
+            </div>
+            @*<div id="gender-error" style="color: red; display: none">Please select the gender</div>*@
+            <div class="form-group">
+                <label asp-for="MobileNumber" class="control-label"></label>
+                <input asp-for="MobileNumber" class="form-control" placeholder="Enter MobileNumber" />
+                <span asp-validation-for="MobileNumber" id="txtmobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your Email ID" />
+                <span asp-validation-for="Email" id="txtemail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject" class="control-label"></label>
+                <input type="hidden" id="hdnSubject" asp-for="Subject" />
+                <select asp-for="Subject" id="drpsub" class="form-control"></select>
+                <span asp-validation-for="Subject" id="drpsubject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="button" id="create" value="@text" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            debugger;
+
+            $("#create").click(function () {
+                debugger;
+
+                if (validate()) {
+                    var name = document.getElementById("Name").value;
+                    var age = document.getElementById("AGE").value;
+                    var mobile = document.getElementById("MobileNumber").value;
+                    // var gender = document.getElementById("radio")
+                    var email = document.getElementById("Email").value;
+                    var dob = document.getElementById("DOB").value;
+                    var spansub = document.getElementById("drpsub");
+                    var sub = spansub.options[spansub.selectedIndex].value;
+                    var radios = document.getElementsByName("radio");
+                    var radgender = ""
+
+                    for (var i = 0, length = radios.length; i < length; i++) {
+                        if (radios[i].checked) {
+                            radgender = radios[i].value;
+                            break;
+                        }
+                    }
+
+
+
+                    debugger;
+
+                    var Studentid = document.getElementById("StudentId").value
+                    var postdate =
+                    {
+                        "StudentId": Studentid,
+                        "Name": name,
+                        "DOB": dob,
+                        "AGE": age,
+                        "Gender": radgender,
+                        "MobileNumber": mobile,
+                        "Email": email,
+                        "Subject": sub
+                    }
+                    debugger;
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/Student/Create",
+                        data: postdate,
+                        success: function (data) {
+                            alert("success");
+                            window.location.href = "/student/index";
+
+                        },
+                        error: function (ex) {
+                            alert("error");
+                        }
+                    });
+
+
+
+
+                }
+
+            });
+
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/api/depart",
+                data: "{}",
+                success: function (data) {
+                    var string = '<option value="-1">--- Please Select your subject ---</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        string += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+                    $("#drpsub").html(string);
+
+                    alert($("#hdnSubject").val());
+
+                    $("#drpsub").val($("#hdnSubject").val());
+                }
+            });
+
+        });
+
+
+        function validate() {
+
+            var name = document.getElementById("Name").value;
+
+            var age = document.getElementById("AGE").value;
+
+            var mobile = document.getElementById("MobileNumber").value;
+
+            var email = document.getElementById("Email").value;
+
+            var dob = document.getElementById("DOB").value;
+
+
+
+
+
+            var isvalid = true;
+
+
+            var spanname = document.getElementById("txtname");
+            if (name == "" || name.length == 0) {
+                spanname.innerText = "Please Enter Your Name";
+                spanname.style.display = "block";
+
+                isvalid = false;
+            }
+            else {
+                spanname.style.display = "none";
+            }
+
+
+
+            var spanage = document.getElementById("txtage");
+            if (age <= 0) {
+                spanage.innerText = "Please Enter Valid Age";
+                spanage.style.display = "block";
+
+                isvalid = false;
+            }
+            else {
+                spanage.style.display = "none";
+            }
+
+            var spanmobile = document.getElementById("txtmobile");
+            if (mobile.length != 10) {
+                spanmobile.innerText = "Please Enter Valid 10-Digit Phone Number";
+                spanmobile.style.display = "block";
+
+                isvalid = false;
+            }
+            else {
+                spanmobile.style.display = "none";
+            }
+
+
+            var spanemail = document.getElementById("txtemail");
+
+            if (email == "") {
+                spanemail.innerText = "Please Enter Valid Email Address";
+                spanemail.style.display = "block";
+                isValid = false;
+            }
+            else {
+                spanemail.style.display = "none";
+            }
+
+
+            var spandob = document.getElementById("txtdob");
+            debugger;
+            if (dob === "" || dob == "0001-01-01T00:00") {
+                spandob.innerText = "Please Enter Your Date Of Birth";
+                spandob.style.display = "block";
+                isvalid = false;
+            }
+            else {
+                spandob.style.display = "none";
+            }
+
+
+
+            var spansub = document.getElementById("drpsub");
+            var sub = spansub.options[spansub.selectedIndex].value;
+            var spansubject = document.getElementById("drpsubject");
+            if (sub == "" || sub == -1 || sub == 0) {
+                spansubject.innerText = "Please Enter Your Subject";
+                spansubject.style.display = "block";
+                isvalid = false;
+            }
+            else {
+
+                spansubject.style.display = "none";
+            }
+
+
+
+            var radios = document.getElementsByName("radio");
+            var val = ""
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    val = radios[i].value;
+                    break;
+                }
+            }
+
+            var gender = document.getElementById("errgender");
+            if (!val) {
+                gender.innerText = "Please Select Your Gender";
+                gender.style.display = "block";
+                isvalid = false;
+            }
+            else {
+                gender.style.display = "none";
+
+            }
+
+            return isvalid;
+        }
+    </script>
+
+}
+
+
+
+
